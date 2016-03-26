@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- Sharol Chand, 3/25/2016, Coding Dojo - jQuery Optional assignment - Contact Card -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Cards</title>
+  <!-- custome style sheets -->
+  <link rel="stylesheet" href="contact_card.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading"><h2>Add User</h2></div>
+		<div class="panel-body">
+			<form method="post" accept-charset="utf-8">
+				<div class="form-group">
+					<label for="first">First Name:</label>
+					<input name="first" type="text" class="form-control" placeholder="First Name">
+				</div>
+				<div class="form-group">
+					<label for="last">Last Name:</label>
+					<input name="last" type="text" class="form-control" placeholder="Last Name">
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea name="description" class="form-control" placeholder="Description"></textarea>
+				</div>				
+
+				<input type="submit" id="submit_button" class="btn btn-primary" value="Add User">
+			</form>
+		</div>
+	</div>
+
+	<div id="contact_cards" class="panel panel-default">
+		<div class="panel-heading"><h2>Contact Cards</h2></div>
+		<div class="panel-body">
+			
+		</div>
+	</div>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+    	$(document).ready(function(){
+			submitForm();
+			getDescription();
+    	});
+
+    	// Submit form
+    	function submitForm(){   		
+    		$(document).on("submit", "form", function(){
+    			
+    			// Get full name 
+    			var fullName = '';	
+    			$(this).children('.form-group').children('input').each(function(i){
+    				fullName += $(this).val() + ' ';
+    				$(this).val('');
+    			});
+
+    			// Get description
+    			var description = $(this).children('.form-group').children('textarea').val();
+				$(this).children('.form-group').children('textarea').val('');
+
+				// Add information to contact card
+    			$("#contact_cards").children('.panel-body').append('<div class="well"><div class="first"><h3>' + fullName + '</h3><span view="first">Click for description</span></div><div class="second hidden"><h4>' + description + '</h4><span view="second">Click for description</span></div></div>');
+
+    			return false;
+    		});
+    	}
+
+    	// Get description
+    	function getDescription(){
+    		$(document).on("click", "span", function(){
+    			if($(this).attr("view") == "first"){
+    				$(this).parent().slideUp("slow");
+    				$(this).parent().siblings().removeClass("hidden").show();
+    				$("span").attr("view","second").text("Go back");
+    			}else{
+					$(this).parent().siblings().slideDown("slow");
+					$(this).parent().addClass("hidden").hide();
+    				$("span").attr("view","first").text("Click for description");			
+    			}
+    		});
+    	}
+    </script>
+</body>
+</html>

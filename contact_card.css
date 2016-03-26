@@ -1,0 +1,12 @@
+/* Sharol Chand, 3/25/2016, Coding Dojo - jQuery Optional assignment - Contact Card */
+.container .panel{
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+}
+.panel-body #submit_button{
+	float: right;
+}
+.hidden{
+	display: none;
+}
